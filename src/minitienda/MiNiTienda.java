@@ -4,29 +4,114 @@ import java.util.Scanner;
 
 public class MiNiTienda {
     
-    public static final double DESCUENTO_MIEMBRO_VIP = 0.15; 
+    public static final double DESCUENTO_MIEMBRO_VIP = 0.15;  
+    
+    public static double calculadorDescuento(boolean booleanVip, double descuento, double subTotal, double total){
+       
+        if(booleanVip == true){
+        
+            descuento = 0.0;
+            descuento = subTotal * DESCUENTO_MIEMBRO_VIP;
+            total = subTotal - descuento;
+            System.out.println("\n [info] ¡El descuento VIP se ha aplicado con exito! ");
+           
+        }else if(booleanVip == false){
+            
+            total = subTotal;
+            System.out.println("\n [info] El cliente no cuenta con membresia. No aplica descuento.");
+            
+        }else{
+            
+            total = subTotal;
+            System.out.println("[ADVERTENCIA] Opcion invalida. Se cobrara la tarifa normal.");
+            
+        }
+      
+        return total;
+    }
+    
+    public static boolean validacionObsequios(int cantProductos){
+        
+        boolean validacion;
+        
+        if(cantProductos >= 5){
+            
+            validacion = true;
+            
+            
+        }else{
+        
+            validacion = false;
+            
+            
+        }
+        
+        return validacion;
+    }
+    
+    public static String seleccionObsequio(int cantProductos, Scanner teclado){
+        
+        String obsequio = "No aplica";
+        
+        if(validacionObsequios(cantProductos) == true){
+            
+            int opcionObsequio;
+            
+            
+            System.out.println("\n==================================");
+            System.out.println("\t OBSEQUIO");
+            System.out.println("==================================");
+            System.out.println("¡Enhorabuena! El cliente ganó un obsequio por llevar 5 o más artículos.");
+            System.out.println("Seleccione el obsequio que pida el cliente: ");
+            System.out.println("1. 1 libra de papas");
+            System.out.println("2. 1 libra de arroz");
+            System.out.println("3. 1 libra de azucar");
+            
+            opcionObsequio = teclado.nextInt();
 
+                if(opcionObsequio == 1){
+
+                    obsequio = "1 Libra de papas";
+
+                }else if( opcionObsequio == 2){
+
+                    obsequio = "1 Libra de arroz";
+
+                }else if( opcionObsequio == 3){
+
+                    obsequio = "1 Libra de azucar";
+
+                }else{
+
+                    obsequio = "No aplica";   
+                }
+        }
+        
+        return obsequio;
+        
+    }
+    
     public static void main(String[] args) {
         
         Scanner teclado = new Scanner(System.in);
         double subTotal = 0.0;
         double total = 0.0;
-        int opcionDescuento = 0;
         int cantProductos = 0;
-        int opcionObsequio = 0;
         double pagoCliente = 0.0;
-        double cambio = 0.0;
-        String obsequio = "No aplica";
-        int inicioFin = 1;
-        double dineroTotalCaja = 0.0;
-        int totalClientes = 0;
-        String nombresClientes [] = new String [100];  
-        double pagoClientes [] = new double [100];
-        int precioTotal [] = new int [100];
-        double totalVentas = 0.0; 
-
         
+        String nombresClientes [] = new String [100];
+        double pagosClientes [] = new double [100];
+        int precioTotal [] = new int [100];
+        
+        int totalClientes = 0;
+        double totalVentas = 0.0; 
+        
+        double cambio = 0.0;
+        int inicioFin = 1;
+ 
         while(inicioFin == 1){ 
+            
+            //En esta seccion se declaran los nombres, cantidad de productos y valor de la compra
             
             System.out.println("==================================");
             System.out.println("Bienvenido a la tienda de Doña Luz");
@@ -48,67 +133,45 @@ public class MiNiTienda {
 
             pagoCliente = teclado.nextDouble();
 
-            total = subTotal;
-
+            
+            //En esta seccion se determina el valor total de la compra en caso de tener o no tener membresia VIP
+            
+            int opcionDescuento = 0;
+            
             System.out.println("¿El cliente cuenta con una membresia VIP?");
             System.out.println("1. Si, el cliente  cuenta con mebresia VIP");
             System.out.println("2. No, el cliente no cuenta con membresia VIP");
 
             opcionDescuento = teclado.nextInt();
-
+            
+            total = subTotal;
+            
+            double descuento = 0.0;
+            
             if(opcionDescuento == 1 ){
-
-                double descuento;
-                descuento = subTotal * DESCUENTO_MIEMBRO_VIP;
-                total = subTotal - descuento;
-
-                System.out.println("\n [info] ¡El descuento VIP se ha aplicado con exito! ");
+                
+                boolean vip = true;
+                total = calculadorDescuento(vip,descuento,subTotal,total);
 
             }else if(opcionDescuento == 2){
-
-                System.out.println("\n [info] El cliente no cuenta con membresia. No aplica descuento.");
-
-            }else{
-
-                System.out.println("[ADVERTENCIA] Opcion invalida. Se cobrara la tarifa normal.");
-
-            }
-
-            obsequio = "No aplica";
-            
-            if(cantProductos >= 5){
                 
-
-                System.out.println("\n==================================");
-                System.out.println("\t OBSEQUIO");
-                System.out.println("==================================");
-                System.out.println("¡Enhorabuena! El cliente ganó un obsequio por llevar 5 o más artículos.");
-                System.out.println("Seleccione el obsequio que pida el cliente: ");
-                System.out.println("1. 1 libra de papas");
-                System.out.println("2. 1 libra de arroz");
-                System.out.println("3. 1 libra de azucar");
-
-                opcionObsequio = teclado.nextInt();
-
-                if(opcionObsequio == 1){
-
-                    obsequio = "1 Libra de papas";
-
-                }else if( opcionObsequio == 2){
-
-                    obsequio = "1 Libra de arroz";
-
-                }else if( opcionObsequio == 3){
-
-                    obsequio = "1 Libra de azucar";
-
-                }else{
-
-                    obsequio = "No aplica";
-
-                }
+                boolean vip = false;
+                total = calculadorDescuento(vip,descuento,subTotal,total);
+                
+            }else{
+                
+                boolean vip = false;
+                total = calculadorDescuento(vip,descuento,subTotal,total);
+                
             }
 
+            //En esta seccion se define si el cliente recibe o no un obsequio por comprar 5 o mas articulos
+            
+            validacionObsequios(cantProductos);
+            
+            String obsequio = seleccionObsequio(cantProductos, teclado);
+           
+            //En esta seccion se crea el ticket con toda la informacion de la compra
 
             System.out.println("\n==================================");
             System.out.println("\tTICKET DE VENTA");
@@ -118,7 +181,9 @@ public class MiNiTienda {
             System.out.println("Subtotal: $" + subTotal);
             System.out.println("Precio total: $" + total);
             
-            pagoClientes [totalClientes] = total;
+            //En esta seccion se calcula el cambio de la persona
+            
+            pagosClientes [totalClientes] = total;
 
             if(pagoCliente > total){
 
@@ -151,7 +216,7 @@ public class MiNiTienda {
             
             teclado.nextLine();
             
-            totalVentas = totalVentas + pagoClientes[totalClientes];
+            totalVentas = totalVentas + pagosClientes[totalClientes];
             
             totalClientes ++;
             
@@ -167,7 +232,7 @@ public class MiNiTienda {
         while(nombresClientes[i] != null ){
             
             System.out.println("Cliente " + (i + 1) + nombresClientes[i]);
-            System.out.println("\tValor de compra: " + pagoClientes[i]);
+            System.out.println("\tValor de compra: " + pagosClientes[i]);
             System.out.println("__________________________________");           
             
             i ++;
