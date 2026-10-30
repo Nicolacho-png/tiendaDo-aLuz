@@ -91,6 +91,30 @@ public class MiNiTienda {
         
     }
     
+    public static double calcularCambio(double pagoCliente, double total){
+        
+        double cambio = 0.0;
+        
+        if(pagoCliente > total){
+
+                cambio = pagoCliente - total;
+                System.out.println("Cambio: " + cambio);
+
+            }else if(pagoCliente == total){
+                
+                System.out.println("Sin cambio");
+            
+            }else{
+
+                cambio = total - pagoCliente;
+                
+                System.out.println("Pago incompleto. Faltan: $ " + cambio );
+
+            }
+        return cambio;
+    }
+    
+    
     public static void main(String[] args) {
         
         Scanner teclado = new Scanner(System.in);
@@ -181,26 +205,11 @@ public class MiNiTienda {
             System.out.println("Subtotal: $" + subTotal);
             System.out.println("Precio total: $" + total);
             
+            pagosClientes [totalClientes] = total;
+            
             //En esta seccion se calcula el cambio de la persona
             
-            pagosClientes [totalClientes] = total;
-
-            if(pagoCliente > total){
-
-                cambio = pagoCliente - total;
-                System.out.println("Cambio: " + cambio);
-
-            }else if(pagoCliente == total){
-                
-                System.out.println("Sin cambio");
-            
-            }else{
-
-                cambio = total - pagoCliente;
-                
-                System.out.println("Pago incompleto. Faltan: $ " + cambio );
-
-            }
+            calcularCambio(pagoCliente, total);
 
             System.out.println("Obsequio: " + obsequio);
 
