@@ -114,6 +114,26 @@ public class MiNiTienda {
         return cambio;
     }
     
+    public static void reporteCaja(String nombresClientes[],double pagosClientes[], double totalVentas){
+        
+        System.out.println("==================================");
+        System.out.println("\tRESUMEN DE CAJA");
+        System.out.println("==================================");
+        
+        int i = 0;
+        
+        while(nombresClientes[i] != null ){
+            
+            System.out.println("Cliente " + (i + 1) +" " +nombresClientes[i]);
+            System.out.println("\tValor de compra: " + pagosClientes[i]);
+            System.out.println("__________________________________");           
+            
+            i ++;
+        }
+        
+        System.out.println("TOTAL:    " + totalVentas);
+        
+    }
     
     public static void main(String[] args) {
         
@@ -232,22 +252,7 @@ public class MiNiTienda {
 
         }
         
-        System.out.println("==================================");
-        System.out.println("\tRESUMEN DE CAJA");
-        System.out.println("==================================");
-        
-        int i = 0;
-        
-        while(nombresClientes[i] != null ){
-            
-            System.out.println("Cliente " + (i + 1) + nombresClientes[i]);
-            System.out.println("\tValor de compra: " + pagosClientes[i]);
-            System.out.println("__________________________________");           
-            
-            i ++;
-        }
-        
-        System.out.println("TOTAL:    " + totalVentas);
+        reporteCaja(nombresClientes,pagosClientes,totalVentas);
         
     }    
 }
