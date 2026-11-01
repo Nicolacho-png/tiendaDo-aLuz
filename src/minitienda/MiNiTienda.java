@@ -1,6 +1,7 @@
 package minitienda;
 
 import java.util.Scanner;
+import minitienda.conexionBD.OperacionesBD;
 
 public class MiNiTienda {
     
@@ -72,18 +73,22 @@ public class MiNiTienda {
                 if(opcionObsequio == 1){
 
                     obsequio = "1 Libra de papas";
+                    
 
                 }else if( opcionObsequio == 2){
 
                     obsequio = "1 Libra de arroz";
+                    
 
                 }else if( opcionObsequio == 3){
 
                     obsequio = "1 Libra de azucar";
+                    
 
                 }else{
 
-                    obsequio = "No aplica";   
+                    obsequio = "No aplica";
+                    
                 }
         }
         
@@ -119,6 +124,8 @@ public class MiNiTienda {
         System.out.println("==================================");
         System.out.println("\tRESUMEN DE CAJA");
         System.out.println("==================================");
+        
+        
         
         int i = 0;
         
@@ -160,6 +167,8 @@ public class MiNiTienda {
             System.out.println("==================================");
             System.out.println("Bienvenido a la tienda de Doña Luz");
             System.out.println("==================================");
+            
+            conexionBD.conectar();
 
             System.out.println("Ingrese el nombre del cliente: ");
             
@@ -229,6 +238,8 @@ public class MiNiTienda {
             
             //En esta seccion se calcula el cambio de la persona
             
+            OperacionesBD.registrarVenta(nombresClientes[totalClientes], cantProductos, total, obsequio);
+            
             calcularCambio(pagoCliente, total);
 
             System.out.println("Obsequio: " + obsequio);
@@ -247,12 +258,18 @@ public class MiNiTienda {
             
             totalVentas = totalVentas + pagosClientes[totalClientes];
             
+
+            
             totalClientes ++;
+            
+            
             
 
         }
         
         reporteCaja(nombresClientes,pagosClientes,totalVentas);
+        
+        
         
     }    
 }
